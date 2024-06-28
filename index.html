@@ -43,15 +43,15 @@
     <div class="container">
         <h2>Stock Calculator</h2>
         <div class="form-group">
-            <label for="capital">Capital:</label>
-            <input type="number" id="capital" placeholder="Enter your capital">
+            <label for="capital">Initial Investment (Rs.):</label>
+            <input type="number" id="capital" placeholder="Enter your initial investment">
         </div>
         <div class="form-group">
-            <label for="previous-price">Previous Price:</label>
+            <label for="previous-price">Previous Price per Stock (Rs.):</label>
             <input type="number" id="previous-price" placeholder="Enter the previous price per stock">
         </div>
         <div class="form-group">
-            <label for="future-price">Future Price:</label>
+            <label for="future-price">Future Price per Stock (Rs.):</label>
             <input type="number" id="future-price" placeholder="Enter the future price per stock">
         </div>
         <button onclick="calculateProfit()">Calculate Profit</button>
@@ -69,10 +69,20 @@
                 return;
             }
 
+            // Multiply the initial investment by 5
+            capital *= 5;
+
             var quantity = Math.floor(capital / previousPrice);
             var profit = (futurePrice - previousPrice) * quantity;
 
-            document.getElementById('result').innerText = "Quantity: " + quantity + "\nProfit: " + profit;
+            var profitPercentage = (profit / (capital / 5)) * 100;
+
+            document.getElementById('result').innerHTML = `
+                <p>Initial Investment: Rs. ${capital.toFixed(2)}</p>
+                <p>Quantity of Stocks: ${quantity}</p>
+                <p>Profit: Rs. ${profit.toFixed(2)}</p>
+                <p>Profit Percentage: ${profitPercentage.toFixed(2)}%</p>
+            `;
         }
     </script>
 </body>
